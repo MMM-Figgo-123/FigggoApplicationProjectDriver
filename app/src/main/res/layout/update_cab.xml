@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:background="@drawable/mpin_gradinet"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_15sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:src="@drawable/appicon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cab Details"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/change_profile_pic_image"
+                android:layout_width="@dimen/_60sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:src="@drawable/ic_car_flat"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+        </LinearLayout>
+
+
+    <!--    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_55sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+&lt;!&ndash;            <TextView&ndash;&gt;
+&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;
+&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;
+&lt;!&ndash;                android:fontFamily="sans-serif-light"&ndash;&gt;
+&lt;!&ndash;                android:text="Name"&ndash;&gt;
+&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;
+&lt;!&ndash;                android:textSize="@dimen/_12sdp" />&ndash;&gt;
+
+            <EditText
+                android:id="@+id/update_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Vehicle Type"
+                android:padding="@dimen/_7sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+&lt;!&ndash;            <TextView&ndash;&gt;
+&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;
+&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;
+&lt;!&ndash;                android:fontFamily="sans-serif-light"&ndash;&gt;
+&lt;!&ndash;                android:text="State"&ndash;&gt;
+&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;
+&lt;!&ndash;                android:textSize="@dimen/_12sdp" />&ndash;&gt;
+
+            <EditText
+                android:id="@+id/update_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Vehicle Category"
+                android:padding="@dimen/_7sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+&lt;!&ndash;            <TextView&ndash;&gt;
+&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;
+&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;
+&lt;!&ndash;                android:fontFamily="sans-serif-light"&ndash;&gt;
+&lt;!&ndash;                android:text="City"&ndash;&gt;
+&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;
+&lt;!&ndash;                android:textSize="@dimen/_12sdp" />&ndash;&gt;
+
+            <EditText
+                android:id="@+id/update_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Vehicle Model"
+                android:padding="@dimen/_7sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+&lt;!&ndash;            <TextView&ndash;&gt;
+&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;
+&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;
+&lt;!&ndash;                android:fontFamily="sans-serif-light"&ndash;&gt;
+&lt;!&ndash;                android:text="Mobile No."&ndash;&gt;
+&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;
+&lt;!&ndash;                android:textSize="@dimen/_12sdp" />&ndash;&gt;
+
+            <EditText
+                android:id="@+id/update_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Registration No"
+                android:padding="@dimen/_7sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+&lt;!&ndash;            <TextView&ndash;&gt;
+&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;
+&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;
+&lt;!&ndash;                android:fontFamily="sans-serif-light"&ndash;&gt;
+&lt;!&ndash;                android:text="Email ID"&ndash;&gt;
+&lt;!&ndash;                android:textColor="@color/black"&ndash;&gt;
+&lt;!&ndash;                android:textSize="@dimen/_12sdp" />&ndash;&gt;
+
+            <EditText
+                android:id="@+id/update_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Insurance Valid till"
+                android:padding="@dimen/_7sdp" />
+
+        </LinearLayout>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cab_details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/background_layout"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.745">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!-- <EditText
+                        android:id="@+id/vechle_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Vehicle Type"
+                        android:padding="3dp"/>-->
+
+                        <Spinner
+                            android:id="@+id/show_cab_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/show_cab_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/show_model_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:id="@+id/show_year_list"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:background="@drawable/input_boder_profile"
+                            android:id="@+id/show_vechle_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:padding="15dp"
+                            android:hint="Vechle No." />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp">
+
+                        <EditText
+                            android:background="@drawable/input_boder_profile"
+                            android:id="@+id/registration_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:padding="15dp"
+                            android:hint="Registration No." />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:background="@drawable/input_boder_profile"
+                            android:id="@+id/show_insurance_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:textSize="13sp"
+                            android:padding="10dp"
+                            android:focusableInTouchMode="false"
+                            android:hint="Insurance valid up to" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:background="@drawable/input_boder_profile"
+                            android:id="@+id/show_tax_permit_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:textSize="13sp"
+                            android:padding="10dp"
+                            android:focusableInTouchMode="false"
+                            android:hint="Local Permit valid up to" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:background="@drawable/input_boder_profile"
+                            android:id="@+id/show_national_permit_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:textSize="13sp"
+                            android:padding="10dp"
+                            android:focusableInTouchMode="false"
+                            android:hint="National Permit valid up to" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/update_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/_7sdp"
+                        android:backgroundTint="#062635"
+                        android:padding="@dimen/_10sdp"
+                        android:text="Update"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:orientation="horizontal">
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Reset Mpin"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:padding="@dimen/_5sdp"-->
+            <!--                android:gravity="right"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textSize="@dimen/_10sdp"-->
+            <!--                />-->
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

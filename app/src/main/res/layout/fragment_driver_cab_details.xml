@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8DD7f7"
+        tools:context=".Fragment.DriverCabDetailsFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backgrouund"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/background"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/wall" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+               <!--  Driver cab details layout-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cab_details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/background_layout"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backgrouund"
+            app:layout_constraintVertical_bias="0.745">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Cab Details"
+                            android:textColor="#325DCB"
+                            android:textSize="20sp" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/upload_car"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/circle_bg"
+                            android:padding="2dp"
+                            android:src="@drawable/cab"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!-- <EditText
+                        android:id="@+id/vechle_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Vehicle Type"
+                        android:padding="3dp"/>-->
+
+                        <Spinner
+                            android:id="@+id/spinner_cabcategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <Spinner
+                            android:id="@+id/spinner_cabtype"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/vechle_model"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/modelYear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:id="@+id/vechle_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_boder_profile"
+                            android:hint="Vehicle No."
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:padding="15dp"
+                            android:textSize="13sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/registration_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_boder_profile"
+                            android:hint="Registration No."
+                            android:padding="15dp"
+                            android:textSize="13sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:id="@+id/insurance_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_boder_profile"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Insurance valid up to"
+                            android:imeOptions="actionNext"
+                            android:padding="10dp"
+                            android:textSize="13sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp">
+
+                        <EditText
+                            android:id="@+id/tax_permit_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_boder_profile"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Local Permit valid up to"
+                            android:imeOptions="actionNext"
+                            android:padding="10dp"
+                            android:textSize="13sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp">
+
+                        <EditText
+                            android:id="@+id/national_permit_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_boder_profile"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="National Permit valid up to"
+                            android:imeOptions="actionNext"
+                            android:padding="10dp"
+                            android:textSize="13sp" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/input_boder_profile"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Inbuilt GPS enabling tracking in real-time" />
+
+                            <RadioGroup
+                                android:id="@+id/radiogrp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/radioBTN_yes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="yes" />
+
+                                <RadioButton
+                                    android:id="@+id/radioBTN_no"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="No" />
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="3"
+                            android:src="@drawable/tracker" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+               <!-- working layout-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/work"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            android:layout_marginHorizontal="@dimen/_7ssp"
+            android:layout_marginVertical="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottombuttonbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backgrouund">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Working Area"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18sdp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:background="@color/light_grey"
+                        android:padding="10dp">
+
+                        <!--                 <EditText-->
+                        <!--                android:layout_width="match_parent"-->
+                        <!--                android:layout_height="match_parent"-->
+                        <!--                android:background="@null"-->
+                        <!--                android:hint="Outstation/Local/Both"-->
+                        <!--                />-->
+                        <Spinner
+                            android:id="@+id/working_area_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Choose Working Area" />
+                    </LinearLayout>
+
+
+                    <!--            working state layout-->
+                    <LinearLayout
+                        android:id="@+id/working_state_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <Spinner
+                                android:id="@+id/select_state1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <Spinner
+                                android:id="@+id/select_state2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <Spinner
+                                android:id="@+id/select_state3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <Spinner
+                                android:id="@+id/select_state4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <Spinner
+                                android:id="@+id/select_state5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <!--            local working area layout-->
+                    <LinearLayout
+                        android:id="@+id/working_local_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <Spinner
+                                android:id="@+id/select_state_local"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working State" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_10sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <Spinner
+                                android:id="@+id/select_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Working City" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--  Image upload layout-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/upload_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_layout"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            android:layout_marginHorizontal="@dimen/_7ssp"
+            android:layout_marginVertical="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottombuttonbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backgrouund">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Upload the Pictures"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18sdp"
+                            android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/Image_upload_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/selfiee"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Selfie"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/driving_licence"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Driving Licence"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/cab_insurance"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Cab Insurance"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/registration_certificate"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Registration Certificate"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/national_permit_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="National Permit"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/local_permit_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Local Permit"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/taxi_front_pic_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Taxi Front Pic \nwith number plate"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/aadhar_front_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Aadhar Card Front"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/aadhar_back_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Aadhar Card Back"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/police_certification_img"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Police Certification"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/trackerGPS"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:background="@color/light_grey"
+                            android:padding="10dp">
+
+
+                            <TextView
+                                android:id="@+id/gpscertificte"
+                                android:drawableEnd="@drawable/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Inbuilt GPS Certificate"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+       <!-- <Button
+            android:id="@+id/proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="#807D7D"
+            android:text="Proceed"
+            android:layout_margin="@dimen/_17sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/bottombuttonbar"
+            app:layout_constraintEnd_toEndOf="parent" />
+-->
+        <include
+            android:id="@+id/bottombuttonbar"
+            layout="@layout/bottom_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
