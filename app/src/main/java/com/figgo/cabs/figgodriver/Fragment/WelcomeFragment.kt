@@ -11,9 +11,13 @@ import com.figgo.cabs.PrefManager
 import com.figgo.cabs.R
 
 
-class WelcomeFragment : Fragment() {
+class WelcomeFragment() : Fragment() {
     lateinit var prefManager: PrefManager
 
+
+    constructor(objects: Array<Any>):this(){
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,5 +47,16 @@ class WelcomeFragment : Fragment() {
                 }}
        // }
         },2000)
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance() =
+            WelcomeFragment()
+
+        @JvmStatic
+        fun newInstance(objects :Array<Any>) =
+            WelcomeFragment(objects)
     }
 }

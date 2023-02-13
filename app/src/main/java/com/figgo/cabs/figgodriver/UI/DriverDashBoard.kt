@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.figgo.cabs.PrefManager
 import com.figgo.cabs.R
+import com.figgo.cabs.db.SharedPreferences
 import com.figgo.cabs.figgodriver.Adapter.NotificationHomeAdapter
 import com.figgo.cabs.figgodriver.Fragment.*
 import com.figgo.cabs.figgodriver.Service.MyService
@@ -58,38 +59,46 @@ import java.util.*
 import kotlin.properties.Delegates
 
 
-class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
+class DriverDashBoard : BaseClass(), CoroutineScope by MainScope() {
+
 
     var doubleBackToExitPressedOnce = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var prefManager: PrefManager
+
+    /**
+     *  MMM  my own SP
+     * */
+
+    lateinit var sp: SharedPreferences
+
     lateinit var baseclass: BaseClass
-    lateinit var wndow:Window
-    lateinit var whataspp:ImageView
-    lateinit var call:ImageView
-    lateinit var share:ImageView
-    lateinit var sidebar:ImageView
-    lateinit var topLayout:LinearLayout
-    lateinit var menu:ImageView
-    lateinit var off_toggle:TextView
-    lateinit var on_toggle:TextView
-    lateinit var draw_layout:NavigationView
-    lateinit var vieww:View
-    lateinit var driverImage:ImageView
-    lateinit var drivername:TextView
-    lateinit var driver_num:TextView
+    lateinit var wndow: Window
+    lateinit var whataspp: ImageView
+    lateinit var call: ImageView
+    lateinit var share: ImageView
+    lateinit var sidebar: ImageView
+    lateinit var topLayout: LinearLayout
+    lateinit var menu: ImageView
+    lateinit var off_toggle: TextView
+    lateinit var on_toggle: TextView
+    lateinit var draw_layout: NavigationView
+    lateinit var vieww: View
+    lateinit var driverImage: ImageView
+    lateinit var drivername: TextView
+    lateinit var driver_num: TextView
     var image: Bitmap? = null
-    lateinit var drawer:DrawerLayout
-    lateinit var action_bar_toggle:ActionBarDrawerToggle
+    lateinit var drawer: DrawerLayout
+    lateinit var action_bar_toggle: ActionBarDrawerToggle
     var lat by Delegates.notNull<Double>()
-    var lon:Double = 0.0
-    var x:Int = 1
-    lateinit var url:String
-    lateinit var homeFrame:FrameLayout
+    var lon: Double = 0.0
+    var x: Int = 1
+    lateinit var url: String
+    lateinit var homeFrame: FrameLayout
     var toggleState by Delegates.notNull<Boolean>()
-    lateinit var offlineLayout:LinearLayout
-    lateinit var bottomNav:BottomNavigationView
-    lateinit var notificationlayout:LinearLayout
+    lateinit var offlineLayout: LinearLayout
+    lateinit var bottomNav: BottomNavigationView
+    lateinit var notificationlayout: LinearLayout
     lateinit var notificationRecyclerView: RecyclerView
 
     val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -99,34 +108,43 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
     }
 
     override fun initializeViews() {
-        wndow=window
-        prefManager= PrefManager(this)
+        wndow = window
+        prefManager = PrefManager(this)
+
+
+        /**
+         *  MMM
+         * */
+        sp = SharedPreferences.getInstance()
+
+
         prefManager.setRegistrationToken("Done")
-         whataspp=findViewById<ImageView>(R.id.whatsapp)
-         call=findViewById<ImageView>(R.id.call)
-         share=findViewById<ImageView>(R.id.share)
-         sidebar=findViewById<ImageView>(R.id.sidebar)
-         topLayout = findViewById<LinearLayout>(R.id.layout)
-         menu = topLayout.sidebar
-         off_toggle = topLayout.toggle_off
-         on_toggle = topLayout.toggle_on
-         draw_layout=findViewById<NavigationView>(R.id.draw_layout)
-         vieww= draw_layout.getHeaderView(0);
-         driverImage=vieww.findViewById<ImageView>(R.id.driverIV)
-         drivername=vieww.findViewById<TextView>(R.id.drivernamee)
-         driver_num=vieww.findViewById<TextView>(R.id.driver_numberr)
-         driverImage.setImageBitmap(image)
-        drivername.text=prefManager.getDriverName()
-        driver_num.text=prefManager.getMobileNo()
+        whataspp = findViewById<ImageView>(R.id.whatsapp)
+        call = findViewById<ImageView>(R.id.call)
+        share = findViewById<ImageView>(R.id.share)
+        sidebar = findViewById<ImageView>(R.id.sidebar)
+        topLayout = findViewById<LinearLayout>(R.id.layout)
+        menu = topLayout.sidebar
+        off_toggle = topLayout.toggle_off
+        on_toggle = topLayout.toggle_on
+        draw_layout = findViewById<NavigationView>(R.id.draw_layout)
+        vieww = draw_layout.getHeaderView(0);
+        driverImage = vieww.findViewById<ImageView>(R.id.driverIV)
+        drivername = vieww.findViewById<TextView>(R.id.drivernamee)
+        driver_num = vieww.findViewById<TextView>(R.id.driver_numberr)
+        driverImage.setImageBitmap(image)
+        drivername.text = prefManager.getDriverName()
+        driver_num.text = prefManager.getMobileNo()
         drawer = findViewById<DrawerLayout>(R.id.Dashboard_Drawer_layout)
-        action_bar_toggle = ActionBarDrawerToggle(this,drawer,R.string.nav_open, R.string.nav_close)
+        action_bar_toggle =
+            ActionBarDrawerToggle(this, drawer, R.string.nav_open, R.string.nav_close)
         url = "https://api.whatsapp.com/send?phone=7505145405"
         homeFrame = findViewById<FrameLayout>(R.id.home_frame)
-        toggleState=false
+        toggleState = false
         offlineLayout = findViewById<LinearLayout>(R.id.offline_layout)
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         notificationlayout = findViewById<LinearLayout>(R.id.includenotifications)
-        baseclass=object : BaseClass(){
+        baseclass = object : BaseClass() {
             override fun setLayoutXml() {
                 TODO("Not yet implemented")
             }
@@ -138,6 +156,7 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             override fun initializeClickListners() {
                 TODO("Not yet implemented")
             }
+
             override fun initializeInputs() {
                 TODO("Not yet implemented")
             }
@@ -150,13 +169,13 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
     }
 
     override fun initializeClickListners() {
-        var id=intent.getStringExtra("booking_id")
-        Log.d("DriverDashBoard","DriverDashBoard"+id)
+        var id = intent.getStringExtra("booking_id")
+        Log.d("DriverDashBoard", "DriverDashBoard" + id)
         drawer.addDrawerListener(action_bar_toggle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        image =baseclass.StringToBitMap(prefManager.getDriverProfile())
+        image = baseclass.StringToBitMap(prefManager.getDriverProfile())
         val rootView: ViewGroup = findViewById(R.id.activeRide_layout)
-        val mFade: Slide =Slide(Gravity.LEFT)
+        val mFade: Slide = Slide(Gravity.LEFT)
         menu.setOnClickListener {
             drawer.openDrawer(GravityCompat.END)
         }
@@ -176,9 +195,12 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         }
 
         share.setOnClickListener {
-            var intent= Intent()
-            intent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT,"I am Inviting you to join  Figgo App for better experience to book cabs");
+            var intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(
+                Intent.EXTRA_TEXT,
+                "I am Inviting you to join  Figgo App for better experience to book cabs"
+            );
             intent.setType("text/plain");
             startActivity(Intent.createChooser(intent, "Invite Friends"));
         }
@@ -187,59 +209,65 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             drawer.openDrawer(GravityCompat.END)
 
         }
+        /**
+         *  MMM  Toggle off stops Service of location Sharing
+         * */
         topLayout.toggle_off.setOnClickListener {
             off_toggle.setBackgroundColor(Color.RED)
             on_toggle.setBackgroundColor(Color.WHITE)
-            toggleState=true
-            Toast.makeText(this,"off",Toast.LENGTH_SHORT).show()
-            offlineLayout.visibility=View.VISIBLE
-            homeFrame.visibility=View.GONE
+            toggleState = true
+            Toast.makeText(this, "off", Toast.LENGTH_SHORT).show()
+            offlineLayout.visibility = View.VISIBLE
+            homeFrame.visibility = View.GONE
             stopService(Intent(this, MyService::class.java))
         }
         topLayout.notificationbell.setOnClickListener {
             val rootView: ViewGroup = findViewById(R.id.activeRide_layout)
-            val mFade: Slide =Slide(Gravity.LEFT)
-            if(notificationlayout.visibility==View.GONE) {
+            val mFade: Slide = Slide(Gravity.LEFT)
+            if (notificationlayout.visibility == View.GONE) {
 
                 TransitionManager.beginDelayedTransition(rootView, mFade)
                 notificationlayout.visibility = View.VISIBLE
                 homeFrame.visibility = View.GONE
-            }
-            else{
+            } else {
                 TransitionManager.beginDelayedTransition(rootView, mFade)
-            notificationlayout.visibility = View.GONE
-            homeFrame.visibility=View.VISIBLE
-        }
+                notificationlayout.visibility = View.GONE
+                homeFrame.visibility = View.VISIBLE
+            }
             //Toast.makeText(this,"Notification Panel working",Toast.LENGTH_SHORT).show();
         }
+
+        /**
+         *  MMM  Toggle on starts Service of location Sharing
+         * */
 
         topLayout.toggle_on.setOnClickListener {
             TransitionManager.beginDelayedTransition(rootView, mFade)
             on_toggle.setBackgroundColor(Color.GREEN)
             off_toggle.setBackgroundColor(Color.WHITE)
-            toggleState=false
-            Toast.makeText(this,"on",Toast.LENGTH_SHORT).show()
-            offlineLayout.visibility=View.GONE
-            homeFrame.visibility=View.VISIBLE
+            toggleState = false
+            Toast.makeText(this, "on", Toast.LENGTH_SHORT).show()
+            offlineLayout.visibility = View.GONE
+            homeFrame.visibility = View.VISIBLE
             startService(Intent(this, MyService::class.java))
         }
-        topLayout.top_back.text="EXIT"
+        topLayout.top_back.text = "EXIT"
         topLayout.top_back.setOnClickListener {
-            if(x==1) {
+            if (x == 1) {
 
-                topLayout.top_back.text="EXIT"
-                if (toggleState==false)
-                    supportFragmentManager.beginTransaction().replace(R.id.home_frame,
+                topLayout.top_back.text = "EXIT"
+                if (toggleState == false)
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.home_frame,
                         HomeDashBoard()
                     ).commit()
-                else{
-                    offlineLayout.visibility=View.VISIBLE
-                    homeFrame.visibility=View.GONE
+                else {
+                    offlineLayout.visibility = View.VISIBLE
+                    homeFrame.visibility = View.GONE
                 }
-                x=2
-            }
-            else{
-                x=1
+                x = 2
+            } else {
+                x = 1
                 val startMain = Intent(Intent.ACTION_MAIN)
                 startMain.addCategory(Intent.CATEGORY_HOME)
                 startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -247,208 +275,212 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             }
         }
 
-       /* if (prefManager.getActiveRide()==1){
-            x=1
-            topLayout.top_back.text="Back"
-            if (toggleState==false)
-                supportFragmentManager.beginTransaction().replace(R.id.home_frame,
-                    CustomerCityRideDetails()
-                ).commit()
-            else{
-                offlineLayout.visibility=View.VISIBLE
-                homeFrame.visibility=View.GONE
-            }
-        }
-        else{
-            x=2
-            if (toggleState==false)
-                supportFragmentManager.beginTransaction().replace(R.id.home_frame, HomeDashBoard()).commit()
-            else{
-                offlineLayout.visibility=View.VISIBLE
-                homeFrame.visibility=View.GONE
-            }
-        }*/
+        /* if (prefManager.getActiveRide()==1){
+             x=1
+             topLayout.top_back.text="Back"
+             if (toggleState==false)
+                 supportFragmentManager.beginTransaction().replace(R.id.home_frame,
+                     CustomerCityRideDetails()
+                 ).commit()
+             else{
+                 offlineLayout.visibility=View.VISIBLE
+                 homeFrame.visibility=View.GONE
+             }
+         }
+         else{
+             x=2
+             if (toggleState==false)
+                 supportFragmentManager.beginTransaction().replace(R.id.home_frame, HomeDashBoard()).commit()
+             else{
+                 offlineLayout.visibility=View.VISIBLE
+                 homeFrame.visibility=View.GONE
+             }
+         }*/
 
         supportFragmentManager.beginTransaction().replace(R.id.home_frame, HomeDashBoard()).commit()
         bottomNav.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.home->{
+            when (it.itemId) {
+                R.id.home -> {
                     TransitionManager.beginDelayedTransition(rootView, mFade)
                     notificationlayout.visibility = View.GONE
-                    homeFrame.visibility=View.VISIBLE
-                    x=2
-                    topLayout.top_back.text="EXIT"
-                    if (toggleState==false)
-                        supportFragmentManager.beginTransaction().replace(R.id.home_frame,
+                    homeFrame.visibility = View.VISIBLE
+                    x = 2
+                    topLayout.top_back.text = "EXIT"
+                    if (toggleState == false)
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.home_frame,
                             HomeDashBoard()
                         ).commit()
-                    else{
-                        offlineLayout.visibility=View.VISIBLE
-                        homeFrame.visibility=View.GONE
+                    else {
+                        offlineLayout.visibility = View.VISIBLE
+                        homeFrame.visibility = View.GONE
                     }
                 }
-                R.id.call->{
+                R.id.call -> {
 
                     var intent_call = Intent(Intent.ACTION_DIAL)
-                    intent_call.data = Uri.parse("tel:"+"+919715597855")
+                    intent_call.data = Uri.parse("tel:" + "+919715597855")
                     startActivity(intent_call)
                 }
-                R.id.active_ride->{
-                    x=1
+                R.id.active_ride -> {
+                    x = 1
                     TransitionManager.beginDelayedTransition(rootView, mFade)
                     notificationlayout.visibility = View.GONE
-                    homeFrame.visibility=View.VISIBLE
-                    topLayout.top_back.text="Back"
-                    if (toggleState==false)
-                        supportFragmentManager.beginTransaction().replace(R.id.home_frame,
+                    homeFrame.visibility = View.VISIBLE
+                    topLayout.top_back.text = "Back"
+                    if (toggleState == false)
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.home_frame,
                             ActiveRide()
                         ).commit()
-                    else{
-                        offlineLayout.visibility=View.VISIBLE
-                        homeFrame.visibility=View.GONE
+                    else {
+                        offlineLayout.visibility = View.VISIBLE
+                        homeFrame.visibility = View.GONE
                     }
                 }
             }
             true
         }
-        var bundle:Bundle= Bundle()
-        var bundle2:Bundle= Bundle()
+        var bundle: Bundle = Bundle()
+        var bundle2: Bundle = Bundle()
         prefManager.setDashboard("on")
         draw_layout.menu.findItem(R.id.Support).setOnMenuItemClickListener {
-            bundle.putString("Key","Support")
+            bundle.putString("Key", "Support")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
+            supportFrag.arguments = bundle
             drawer.closeDrawer(GravityCompat.END)
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         draw_layout.menu.findItem(R.id.About_Figgo).setOnMenuItemClickListener {
-            bundle.putString("Key","About")
+            bundle.putString("Key", "About")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
+            supportFrag.arguments = bundle
             drawer.closeDrawer(GravityCompat.END)
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.term_condition).setOnMenuItemClickListener {
-            bundle.putString("Key","Terms")
+            bundle.putString("Key", "Terms")
             var supportFrag = SupportFragment()
             drawer.closeDrawer(GravityCompat.END)
-            supportFrag.arguments=bundle
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            supportFrag.arguments = bundle
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.wallets).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(
+                R.id.home_frame,
                 AccountDetailsFragment()
             ).commit()
-            homeFrame.visibility=View.VISIBLE
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.ridehistoryDrawer).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,
-               RideHistory()
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(
+                R.id.home_frame,
+                RideHistory()
             ).commit()
-            homeFrame.visibility=View.VISIBLE
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.cancellation_policy).setOnMenuItemClickListener {
-            bundle.putString("Key","Cancel")
+            bundle.putString("Key", "Cancel")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
+            supportFrag.arguments = bundle
             drawer.closeDrawer(GravityCompat.END)
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.profile).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle2.putString("Key","Profile")
-           /* var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle*/
+            bundle2.putString("Key", "Profile")
+            /* var supportFrag = SupportFragment()
+             supportFrag.arguments=bundle*/
             var getData = GetData()
-            getData.arguments=bundle2
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,getData).commit()
-            homeFrame.visibility=View.VISIBLE
+            getData.arguments = bundle2
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, getData).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         draw_layout.menu.findItem(R.id.change_mpin_navigation).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle.putString("Key","Change_Mpin")
+            bundle.putString("Key", "Change_Mpin")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            supportFrag.arguments = bundle
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         //deleteCache(this)
-       // this.cacheDir.deleteRecursively()
+        // this.cacheDir.deleteRecursively()
         draw_layout.menu.findItem(R.id.cab_driver_details_navigation).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle2.putString("Key","Cab")
+            bundle2.putString("Key", "Cab")
             /* var supportFrag = SupportFragment()
              supportFrag.arguments=bundle*/
             var getData = GetData()
-            getData.arguments=bundle2
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,getData).commit()
-            homeFrame.visibility=View.VISIBLE
+            getData.arguments = bundle2
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, getData).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         draw_layout.menu.findItem(R.id.figgo_bussiness).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle.putString("Key","Buisness")
+            bundle.putString("Key", "Buisness")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            supportFrag.arguments = bundle
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         draw_layout.menu.findItem(R.id.saleRideExtra).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
             var salesFrag = SaleExtraBooking()
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,salesFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, salesFrag).commit()
+            homeFrame.visibility = View.VISIBLE
 
             true
         }
         draw_layout.menu.findItem(R.id.Payment_History).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle.putString("Key","History")
+            bundle.putString("Key", "History")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            supportFrag.arguments = bundle
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
             true
         }
         draw_layout.menu.findItem(R.id.share_ride_Nav).setOnMenuItemClickListener {
             drawer.closeDrawer(GravityCompat.END)
             var shareFrag = ShareRideFragment()
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,shareFrag).commit()
-            homeFrame.visibility=View.VISIBLE
-            Toast.makeText(this,"Ip "+myFunction(),Toast.LENGTH_SHORT).show()
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, shareFrag).commit()
+            homeFrame.visibility = View.VISIBLE
+            Toast.makeText(this, "Ip " + myFunction(), Toast.LENGTH_SHORT).show()
             true
         }
         draw_layout.menu.findItem(R.id.share_app).setOnMenuItemClickListener {
@@ -456,19 +488,20 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             val appPackageName = packageName // getPackageName() from Context or Activity object
 
 
-
-
-            val ip_address:String=myFunction()
+            val ip_address: String = myFunction()
             var ref_link = prefManager.getReferal();
-           // sendreferal(ip_address)
-        /*    val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(ref_link)
-            startActivity(i)*/
+            // sendreferal(ip_address)
+            /*    val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(ref_link)
+                startActivity(i)*/
 
-            val inviteLink: String =ref_link
+            val inviteLink: String = ref_link
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I’m inviting you to join Figgo Drivers,use this code while submitting your form to earn rewards. $inviteLink")
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "I’m inviting you to join Figgo Drivers,use this code while submitting your form to earn rewards. $inviteLink"
+            )
             sendIntent.type = "text/*"
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
@@ -479,12 +512,12 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
 
         vieww.setOnClickListener {
             drawer.closeDrawer(GravityCompat.END)
-            bundle.putString("Key","Profile")
+            bundle.putString("Key", "Profile")
             var supportFrag = SupportFragment()
-            supportFrag.arguments=bundle
-            offlineLayout.visibility=View.GONE
-            supportFragmentManager.beginTransaction().replace(R.id.home_frame,supportFrag).commit()
-            homeFrame.visibility=View.VISIBLE
+            supportFrag.arguments = bundle
+            offlineLayout.visibility = View.GONE
+            supportFragmentManager.beginTransaction().replace(R.id.home_frame, supportFrag).commit()
+            homeFrame.visibility = View.VISIBLE
 
         }
         draw_layout.menu.findItem(R.id.logout).setOnMenuItemClickListener {
@@ -497,7 +530,17 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             alertDialog2.setPositiveButton(
                 "Yes"
             ) { dialog: DialogInterface?, which: Int ->
-                Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show()
+                /**
+                 * MMM write your code to save login status in SP
+                 * **/
+
+                sp.setLoginStatus(false)
+
+
+
+
+
                 prefManager.setToken("")
                 stopService(Intent(this, MyService::class.java))
                 prefManager.setRegistrationToken("")
@@ -512,25 +555,108 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         }
         val notificationRecycler = findViewById<RecyclerView>(R.id.notificationrecycler)
         val notificationList = kotlin.collections.ArrayList<NotificationData>()
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
-        notificationList.add(NotificationData("Congratulation, Your Profile is verified","Hello Figgo Driver, Your profile data is successfully verified.","2 hours ago"))
-        notificationList.add(NotificationData("Start accepting bookings near you","Hello Figgo Driver, Your profile data is successfully verified.","1 hours ago"))
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Congratulation, Your Profile is verified",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "2 hours ago"
+            )
+        )
+        notificationList.add(
+            NotificationData(
+                "Start accepting bookings near you",
+                "Hello Figgo Driver, Your profile data is successfully verified.",
+                "1 hours ago"
+            )
+        )
 
-        notificationRecycler.adapter=NotificationHomeAdapter(this,notificationList)
-        notificationRecycler.layoutManager=LinearLayoutManager(this)
+        notificationRecycler.adapter = NotificationHomeAdapter(this, notificationList)
+        notificationRecycler.layoutManager = LinearLayoutManager(this)
     }
-
 
 
     override fun initializeInputs() {
@@ -568,11 +694,14 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        fusedLocationProviderClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
-            override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
+        fusedLocationProviderClient.getCurrentLocation(
+            LocationRequest.PRIORITY_HIGH_ACCURACY,
+            object : CancellationToken() {
+                override fun onCanceledRequested(p0: OnTokenCanceledListener) =
+                    CancellationTokenSource().token
 
-            override fun isCancellationRequested() = false
-        })
+                override fun isCancellationRequested() = false
+            })
             .addOnSuccessListener { location: Location? ->
                 if (location == null)
                     Toast.makeText(this, "Cannot get location.", Toast.LENGTH_SHORT).show()
@@ -581,11 +710,12 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
                     prefManager.setlatitude(lat.toFloat())
                     lon = location.longitude
                     prefManager.setlongitude(lon.toFloat())
-                  //Toast.makeText(this,"Lat :"+lat+"\nLong: "+lon,Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this,"Lat :"+lat+"\nLong: "+lon,Toast.LENGTH_SHORT).show()
                 }
             }
 
-   }
+    }
+
     fun getMacAddr(): String? {
         var ip = ""
         try {
@@ -613,7 +743,7 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
     }
 
 
-    private suspend fun getMyPublicIpAsync() : Deferred<String> =
+    private suspend fun getMyPublicIpAsync(): Deferred<String> =
         coroutineScope {
             async(Dispatchers.IO) {
                 var result = ""
@@ -623,7 +753,7 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
                     val iStream = httpsURLConnection.getInputStream()
                     val buff = ByteArray(1024)
                     val read = iStream.read(buff)
-                    String(buff,0, read)
+                    String(buff, 0, read)
                 } catch (e: Exception) {
                     "error : $e"
                 }
@@ -632,15 +762,15 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         }
 
 
-    private fun myFunction():String {
-   /*     var ip:String=""
-        CoroutineScope(Dispatchers.Main).launch {
-            val myPublicIp = getMyPublicIpAsync().await()
-            Toast.makeText(this@DriverDashBoard, myPublicIp, Toast.LENGTH_LONG).show()
-            ip=myPublicIp.toString()
+    private fun myFunction(): String {
+        /*     var ip:String=""
+             CoroutineScope(Dispatchers.Main).launch {
+                 val myPublicIp = getMyPublicIpAsync().await()
+                 Toast.makeText(this@DriverDashBoard, myPublicIp, Toast.LENGTH_LONG).show()
+                 ip=myPublicIp.toString()
 
-        }
-        return ip.toString()*/
+             }
+             return ip.toString()*/
         try {
             val interfaces: List<NetworkInterface> =
                 Collections.list(NetworkInterface.getNetworkInterfaces())
@@ -668,6 +798,7 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         }
         return ""
     }
+
     private fun getIpAddress(): String? {
         var ip = ""
         try {
@@ -721,10 +852,12 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         super.onDestroy()
         prefManager.setActiveRide(0)
     }
+
     private fun getLocalIpAddress(): String? {
         try {
 
-            val wifiManager: WifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            val wifiManager: WifiManager =
+                applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             return if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -737,7 +870,7 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                return  wifiManager.connectionInfo.macAddress
+                return wifiManager.connectionInfo.macAddress
             } else {
                 return "0.0.0.0"
             }
@@ -749,6 +882,10 @@ class DriverDashBoard : BaseClass(),CoroutineScope by MainScope() {
         return null
     }
 
+
+    /**
+     *  ON BACK PRESSED CODE HERE
+     * **/
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
         if (count == 0) {

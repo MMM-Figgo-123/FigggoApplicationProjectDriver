@@ -3,7 +3,7 @@ package com.figgo.cabs.pearllib
 import android.content.Context
 import android.content.SharedPreferences
 
-class Session( val context: Context) {
+class Session(val context: Context) {
     private val prefs: SharedPreferences
     var editor: SharedPreferences.Editor
 

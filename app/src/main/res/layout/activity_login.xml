@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/Theme.AppCompat.DayNight.NoActionBar"
-    tools:context=".LoginActivity">
+    tools:context=".figgodriver.UI.LoginActivity">
 
     <fragment
         android:id="@+id/nav_controller"

@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.CALL_COMPANION_APP" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -36,6 +37,7 @@
         android:value="AIzaSyCbd3JqvfSx0p74kYfhRTXE7LZghirSDoU" />
 
     <application
+        android:name=".app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -46,15 +48,24 @@
         android:theme="@style/Theme.FiggoDriver"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.OnBoardingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activities.AuthActivity"
+            android:exported="true" />
+        <activity
             android:name=".figgodriver.UI.CustomerCityRideDetailActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".figgodriver.UI.StartRideActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

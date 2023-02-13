@@ -15,4 +15,6 @@
 
     //custom colors
     <color name="app_blue">#000F3B</color>
+    <color name="sky_blue">#B9E5FA</color>
+    <color name="app_white">#FFFFFFFF</color>
 </resources>

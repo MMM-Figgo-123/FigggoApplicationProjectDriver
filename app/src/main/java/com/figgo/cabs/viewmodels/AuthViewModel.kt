@@ -8,7 +8,7 @@ import com.example.finalassignment.utils.Event
 class AuthViewModel() : ViewModel() {
 
 
-    private var openDashboardFragment: MutableLiveData<Event<Array<Any>>> =
+    private var openWelcomeFragment: MutableLiveData<Event<Array<Any>>> =
         MutableLiveData<Event<Array<Any>>>()
 
 
@@ -16,12 +16,12 @@ class AuthViewModel() : ViewModel() {
 
 
 
-    fun getOpenDashboardFragment(): MutableLiveData<Event<Array<Any>>> {
-        return openDashboardFragment
+    fun getOpenWelcomeFragment(): MutableLiveData<Event<Array<Any>>> {
+        return openWelcomeFragment
     }
 
-    fun setOpenDashboardFragment(objects: Array<Any>) {
-        openDashboardFragment.value = Event(objects)
+    fun setOpenWelcomeFragment(objects: Array<Any>) {
+        openWelcomeFragment.value = Event(objects)
     }
 
 
